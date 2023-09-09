@@ -33,6 +33,21 @@ namespace Full_GRASP_And_SOLID.Library
                 Console.WriteLine($"{step.Quantity} de '{step.Input.Description}' " +
                     $"usando '{step.Equipment.Description}' durante {step.Time}");
             }
+            Console.WriteLine($"\nValor total de la receta: ${GetProductionCost()}");
+        }
+
+        // Es Single-Responsibility Principle porque la receta solo sabe cuanto cuesta todo junto
+        // mientras que cada step conoce su costo
+        public double GetProductionCost() 
+        {
+            double cost = 0;
+
+            foreach (Step step in steps)
+            {
+                cost += step.GetStepCost();
+            }
+            
+            return cost;
         }
     }
 }
